@@ -96,12 +96,12 @@ const ItemCharacteristic = sequelize.define("item_characteristic", {
   },
   title: {
     type: DataTypes.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
   },
   description: {
     type: DataTypes.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
   },
 });
@@ -131,7 +131,7 @@ Item.belongsTo(Brand);
 Item.hasMany(CartItem);
 CartItem.belongsTo(Item);
 
-Item.hasMany(ItemCharacteristic, /*{as: 'info'}*/); //TODO: check as info
+Item.hasMany(ItemCharacteristic); //TODO: check as: 'info'
 ItemCharacteristic.belongsTo(Item);
 
 Type.belongsToMany(Brand, {through: TypeBrand});

@@ -5,8 +5,12 @@ const { HTTP_STATUS } = require("../helpers/httpStatuses");
 const { Brand } = require("../models/models");
 
 class BrandController {
-  async create(req, res) {
+  async create(req, res,next) {
     const { name } = req.body;
+    const brandFound = await Brand.findOne({ where: { name: name } });
+    if (brandFound) {
+      return next(ApiError.badRequest("This brand is already exists"));
+    }
     //Although a model is a class, the Sequelize requires to create instances by using build in method CREATE,
     //instead of the new operator directly.
     const brand = await Brand.create({ name });

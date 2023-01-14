@@ -10,7 +10,7 @@ const fs = require("fs");
 class ItemController {
   async create(req, res, next) {
     try {
-      let { name, price, typeId, brandId, item_characteristics /* info */} = req.body; //TODO: check info
+      let { name, price, typeId, brandId, item_characteristics} = req.body; //TODO: check as:info
       const { img } = req.files;
       let fileName = uuid.v4() + ".jpg";
       img.mv(path.resolve(__dirname, "..", "static", fileName));
@@ -28,7 +28,7 @@ class ItemController {
       //creating itemCharacteristics instances is done asynchronously as result is not requred right  here
       if (item_characteristics) {
         item_characteristics = JSON.parse(item_characteristics);
-        item_characteristic.forEach((i) => {
+        item_characteristics.forEach((i) => {
           ItemCharacteristic.create({
             title: i.title,
             description: i.description,
@@ -87,7 +87,7 @@ class ItemController {
     const id = req.params.id;
     const itemFound = await Item.findOne({ where: { id }, 
       //this adds item characteristics to res as they are required for front-end at the same time
-      include: [{model: ItemCharacteristic, /*as: 'info'*/}] }); //TODO: check as info
+      include: [{model: ItemCharacteristic, as: 'item_characteristics'}] });
     if (itemFound === null) {
       return next(ApiError.badRequest("Not found"));
     }

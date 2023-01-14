@@ -105,18 +105,3 @@ describe("/user/auth", () => {
 
 
 
-
-// it("shoul create a type in DB, return 201 and a type instance with name property equel to testName variable.", async () => {
-//     const response = await request(app)
-//       .post("/api/type")
-//       .set("Authorization", `Bearer ${process.env.TEST_JWT_ADMIN}`)
-//       .send({ name: testName })
-//       .expect(HTTP_STATUS.CREATED_201);
-
-//     expect(response.body.type).toEqual({
-//       createdAt: expect.any(String),
-//       id: expect.any(Number),
-//       name: testName,
-//       updatedAt: expect.any(String),
-//     });
-//   });
